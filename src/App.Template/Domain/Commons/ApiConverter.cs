@@ -12,7 +12,18 @@ namespace App.Template.Domain.Commons
             }
             catch (FormatException)
             {
-                throw new FormatException("Id is invalid.");
+                throw new FormatException("Id format is invalid");
+            }
+        }
+        public static DateTime ToDateTime(string payload)
+        {
+            try
+            {
+                return DateTime.Parse(payload);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("Date format is invalid");
             }
         }
     }

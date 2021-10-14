@@ -1,8 +1,8 @@
-using App.Template.Domain.Entities.User;
-using App.Template.Api.Adapters.Response;
 using System.Collections.Generic;
+using App.Template.Domain.Entities.User;
+using App.Template.Api.Adapters.Responses;
 
-namespace App.Template.Api.Adapters.Factories
+namespace App.Template.Api.Adapters.Factories.User
 {
     public class UserResponseFactory
     {
@@ -10,7 +10,8 @@ namespace App.Template.Api.Adapters.Factories
         {
             return UserResponse.Builder()
                         .WithId(userEntity.Id.Value.ToString())
-                        .WithName(userEntity.Name.Value)
+                        .WithFirstName(userEntity.FirstName.Value)
+                        .WithLastName(userEntity.LastName.Value)
                         .WithEmail(userEntity.Email.Value)
                         .Build();
         }

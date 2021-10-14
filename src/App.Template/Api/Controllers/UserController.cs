@@ -1,8 +1,9 @@
 ﻿using System;
-using App.Template.Domain.Commons;
 using Microsoft.AspNetCore.Mvc;
-using App.Template.Api.Adapters.Factories;
+using App.Template.Domain.Commons;
+using App.Template.Api.Adapters.Responses;
 using App.Template.Api.Adapters.Requests.User;
+using App.Template.Api.Adapters.Factories.User;
 using App.Template.Domain.Contracts.UseCase.User;
 
 namespace App.Template.Api.Controllers
@@ -18,9 +19,9 @@ namespace App.Template.Api.Controllers
             {
                 return Ok(UserResponseFactory.Build(useCase.FindAll()));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound();
+                return NotFound(ErrorResponse.BuildException(ex));
             }
         }
         [HttpGet("{id}")]
@@ -33,11 +34,11 @@ namespace App.Template.Api.Controllers
             }
             catch (FormatException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ErrorResponse.BuildException(ex));
             }
             catch (Exception ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(ErrorResponse.BuildException(ex));
             }
         }
         [HttpPost]
@@ -45,16 +46,18 @@ namespace App.Template.Api.Controllers
         {
             try
             {
+                if(!userCreateRequest.Validate()) return BadRequest(ErrorResponse.BuildValidationError());
+                
                 useCase.Create(UserEntityFactory.Build(userCreateRequest));
                 return Created("", null);
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ErrorResponse.BuildException(ex));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ErrorResponse.BuildException(ex));
             }
         }
         [HttpPut("{id}")]
@@ -62,6 +65,8 @@ namespace App.Template.Api.Controllers
         {
             try
             {
+                if(!userUpdateRequest.Validate()) return BadRequest(ErrorResponse.BuildValidationError());
+
                 var guid = ApiConverter.ToGuid(id);
                 useCase.Update(guid, UserEntityFactory.Build(userUpdateRequest));
 
@@ -69,15 +74,15 @@ namespace App.Template.Api.Controllers
             }
             catch (FormatException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ErrorResponse.BuildException(ex));
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ErrorResponse.BuildException(ex));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound();
+                return NotFound(ErrorResponse.BuildException(ex));
             }
         }
         [HttpDelete("{id}")]
@@ -92,11 +97,11 @@ namespace App.Template.Api.Controllers
             }
             catch (FormatException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ErrorResponse.BuildException(ex));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound();
+                return NotFound(ErrorResponse.BuildException(ex));
             }
         }
     }

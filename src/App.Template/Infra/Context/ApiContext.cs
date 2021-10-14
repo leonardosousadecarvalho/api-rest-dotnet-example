@@ -7,6 +7,6 @@ namespace App.Template.Infra.Context
     {
         public ApiContext(DbContextOptions<ApiContext> options)
             : base(options){}
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<UserModel> Users { get; private set;}
     }
 }

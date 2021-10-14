@@ -1,9 +1,9 @@
+using App.Template.Infra.Models;
 using System.Collections.Generic;
 using App.Template.Domain.Entities.User;
-using App.Template.Infra.Models;
 using App.Template.Api.Adapters.Requests.User;
 
-namespace App.Template.Api.Adapters.Factories
+namespace App.Template.Api.Adapters.Factories.User
 {
     public class UserEntityFactory
     {
@@ -11,25 +11,26 @@ namespace App.Template.Api.Adapters.Factories
         {
             return UserEntity.Builder()
                     .WithId(userModel.Id.ToString())
-                    .WithName(userModel.Name)
+                    .WithFirstName(userModel.FirstName)
+                    .WithLastName(userModel.LastName)
                     .WithEmail(userModel.Email)
                     .Build();
         }
         public static UserEntity Build(UserCreateRequest userCreateRequest)
         {
             return UserEntity.Builder()
-                    .WithName(userCreateRequest.Name)
+                    .WithFirstName(userCreateRequest.FirstName)
+                    .WithLastName(userCreateRequest.LastName)
                     .WithEmail(userCreateRequest.Email)
                     .BuildWithoutId();
-                    // .Build();
         }
         public static UserEntity Build(UserUpdateRequest userUpdateRequest)
         {
             return UserEntity.Builder()
-                    .WithName(userUpdateRequest.Name)
+                    .WithFirstName(userUpdateRequest.FirstName)
+                    .WithLastName(userUpdateRequest.LastName)
                     .WithEmail(userUpdateRequest.Email)
                     .BuildWithoutId();
-                    // .Build();
         }
         public static IEnumerable<UserEntity> Build(IEnumerable<UserModel> usersModel)
         {

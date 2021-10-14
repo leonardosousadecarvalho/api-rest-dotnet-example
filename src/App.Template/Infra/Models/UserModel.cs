@@ -9,27 +9,49 @@ namespace App.Template.Infra.Models
     {
         [Key]
         [Column("id")]
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
 
-        [Column("name")]
-        public string Name { get; set; }
+        [Column("firstName")]
+        public string FirstName { get; private set; }
+
+        [Column("lastName")]
+        public string LastName { get; private set; }
 
         [Column("email")]
-        public string Email { get; set; }
+        public string Email { get; private set; }
+        public void SetFirstName(string firstName)
+        {
+            this.FirstName = firstName;
+        }
+        public void SetLastName(string lastName)
+        {
+            this.LastName = lastName;
+        }
+        public void SetEmail(string email)
+        {
+            this.Email = email;
+        }
         public static UserModelBuilder Builder() => new UserModelBuilder();
         public class UserModelBuilder
         {
-            public string Id { get; set; }
-            public string Name { get; set; }
-            public string Email { get; set; }
+            public string Id { get; private set; }
+            public string FirstName { get; private set; }
+            public string LastName { get; private set; }
+            public string Email { get; private set; }
             public UserModelBuilder WithId(string id)
             {
                 this.Id = id;
                 return this;
             }
-            public UserModelBuilder WithName(string name)
+            public UserModelBuilder WithFirstName(string firstName)
             {
-                this.Name = name;
+                this.FirstName = firstName;
+                return this;
+            }
+
+            public UserModelBuilder WithLastName(string lastName)
+            {
+                this.LastName = lastName;
                 return this;
             }
             public UserModelBuilder WithEmail(string email)
@@ -42,8 +64,18 @@ namespace App.Template.Infra.Models
                 return new UserModel
                 {
                     Id = ApiConverter.ToGuid(this.Id),
-                    Name = this.Name,
-                    Email = this.Email
+                    FirstName = this.FirstName,
+                    LastName = this.LastName,
+                    Email = this.Email,
+                };
+            }
+            public UserModel BuildWithoutId()
+            {
+                return new UserModel
+                {
+                    FirstName = this.FirstName,
+                    LastName = this.LastName,
+                    Email = this.Email,
                 };
             }
         }

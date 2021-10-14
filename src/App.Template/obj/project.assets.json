@@ -740,11 +740,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/leonardo/workspace/dotnet/api-rest/src/Api.Example.csproj",
+      "projectUniqueName": "/home/leonardo/workspace/dotnet/api-rest/src/App.Template/Api.Example.csproj",
       "projectName": "Api.Example",
-      "projectPath": "/home/leonardo/workspace/dotnet/api-rest/src/Api.Example.csproj",
+      "projectPath": "/home/leonardo/workspace/dotnet/api-rest/src/App.Template/Api.Example.csproj",
       "packagesPath": "/home/leonardo/.nuget/packages/",
-      "outputPath": "/home/leonardo/workspace/dotnet/api-rest/src/obj/",
+      "outputPath": "/home/leonardo/workspace/dotnet/api-rest/src/App.Template/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/leonardo/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rimlobaDe4aFK+fgYhtaB1zzJFOALXyg+u8wzWxSN7QIboPRrKu40QeHT/l4sbT8/39S4+vjhnHb8SClqfBsOA==",
+  "dgSpecHash": "bJOeL5eG0/Eg6oV1YupHPwHP5VtfF7nWvko5CmejDdejsNCC2oH9Gmjy9buiZH20K/GdQESCLPieKxhqpSBOxw==",
   "success": true,
-  "projectFilePath": "/home/leonardo/workspace/dotnet/api-rest/src/Api.Example.csproj",
+  "projectFilePath": "/home/leonardo/workspace/dotnet/api-rest/src/App.Template/Api.Example.csproj",
   "expectedPackageFiles": [
     "/home/leonardo/.nuget/packages/microsoft.entityframeworkcore/5.0.10/microsoft.entityframeworkcore.5.0.10.nupkg.sha512",
     "/home/leonardo/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.10/microsoft.entityframeworkcore.abstractions.5.0.10.nupkg.sha512",

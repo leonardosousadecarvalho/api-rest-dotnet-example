@@ -2,8 +2,6 @@ using System;
 using App.Template.Domain.Entities.User;
 using App.Template.Domain.Contracts.Repository;
 using App.Template.Domain.Contracts.UseCase.User;
-using App.Template.Domain.Entities.User.Types;
-
 namespace App.Template.Domain.UseCases.User
 {
     public class CreateUserUseCase : ICreateUserUseCase
@@ -17,7 +15,8 @@ namespace App.Template.Domain.UseCases.User
         {
             try
             {
-                userEntity.Id = new Id(Guid.NewGuid());
+                if (userEntity == null) throw new Exception("Failed to create user.");
+                
                 _repository.Create(userEntity);
             }
             catch (Exception)

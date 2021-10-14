@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using App.Template.Infra.Models;
 using App.Template.Infra.Context;
 using App.Template.Domain.Entities.User;
-using App.Template.Api.Adapters.Factories;
-using System.Collections.Generic;
 using App.Template.Domain.Contracts.Repository;
+using App.Template.Api.Adapters.Factories.User;
 
 namespace App.Template.Infra.Repository
 {
@@ -86,8 +86,9 @@ namespace App.Template.Infra.Repository
         }
         private UserModel _mergeProperties(UserEntity userEntity, UserModel userModel)
         {
-            userModel.Name = userEntity.Name.Value;
-            userModel.Email = userEntity.Email.Value;
+            userModel.SetFirstName(userEntity.FirstName.Value);
+            userModel.SetLastName(userEntity.LastName.Value);
+            userModel.SetEmail(userEntity.Email.Value);
 
             return userModel;
         }

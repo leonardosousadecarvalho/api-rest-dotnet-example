@@ -1,27 +1,26 @@
 using System;
 using App.Template.Domain.Commons;
 
-namespace App.Template.Domain.Entities.User.Types
+namespace App.Template.Domain.Entities.Shared
 {
     public class Id
     {
-        public Guid Value { get; set; }
+        public Guid Value { get; private set; }
         public Id(Guid value)
         {
             this.Value = value;
         }
         public Id(string value)
         {
-            if (this.Validate(value)) this.Value = ApiConverter.ToGuid(value);
+            this.Validate(value);
+            this.Value = ApiConverter.ToGuid(value);
         }
-        private bool Validate(string value)
+        private void Validate(string value)
         {
-            if (value == null || value == "" || value.Length < 5)
+            if (String.IsNullOrEmpty(value) || value.Length < 5)
             {
                 throw new ArgumentException("Id parameter cannot be empty.");
             }
-
-            return true;
         }
     }
 }

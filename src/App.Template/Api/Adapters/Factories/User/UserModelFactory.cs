@@ -1,8 +1,8 @@
+using App.Template.Infra.Models;
 using System.Collections.Generic;
 using App.Template.Domain.Entities.User;
-using App.Template.Infra.Models;
 
-namespace App.Template.Api.Adapters.Factories
+namespace App.Template.Api.Adapters.Factories.User
 {
     public class UserModelFactory
     {
@@ -10,7 +10,8 @@ namespace App.Template.Api.Adapters.Factories
         {
             return UserModel.Builder()
                     .WithId(userEntity.Id.Value.ToString())
-                    .WithName(userEntity.Name.Value)
+                    .WithFirstName(userEntity.FirstName.Value)
+                    .WithLastName(userEntity.LastName.Value)
                     .WithEmail(userEntity.Email.Value)
                     .Build();
         }
