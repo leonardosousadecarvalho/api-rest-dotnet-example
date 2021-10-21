@@ -25,11 +25,13 @@ namespace App.Template.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        public IActionResult FindById([FromServices] IFindByIdUserUseCase useCase, string id)
+        public IActionResult FindById([FromServices] IFindByIdUserUseCase useCase, [FromServices] IUserExistsUseCase userExists, string id)
         {
             try
             {
                 var guid = ApiConverter.ToGuid(id);
+                if(!userExists.Check(guid)) return NotFound(ErrorResponse.BuildNotFound());
+
                 return Ok(UserResponseFactory.Build(useCase.FindById(guid)));
             }
             catch (FormatException ex)
@@ -61,15 +63,17 @@ namespace App.Template.Api.Controllers
             }
         }
         [HttpPut("{id}")]
-        public IActionResult Update([FromServices] IUpdateUserUseCase useCase, string id, [FromBody] UserUpdateRequest userUpdateRequest)
+        public IActionResult Update([FromServices] IUpdateUserUseCase useCase, [FromServices] IUserExistsUseCase userExists, string id, [FromBody] UserUpdateRequest userUpdateRequest)
         {
             try
             {
                 if(!userUpdateRequest.Validate()) return BadRequest(ErrorResponse.BuildValidationError());
 
                 var guid = ApiConverter.ToGuid(id);
-                useCase.Update(guid, UserEntityFactory.Build(userUpdateRequest));
 
+                if(!userExists.Check(guid)) return NotFound(ErrorResponse.BuildNotFound());
+
+                useCase.Update(guid, UserEntityFactory.Build(userUpdateRequest));
                 return NoContent();
             }
             catch (FormatException ex)
@@ -86,13 +90,14 @@ namespace App.Template.Api.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromServices] IDeleteUserUseCase useCase, string id)
+        public IActionResult Delete([FromServices] IDeleteUserUseCase useCase, [FromServices] IUserExistsUseCase userExists, string id)
         {
             try
             {
                 var guid = ApiConverter.ToGuid(id);
-                useCase.Delete(guid);
+                if(!userExists.Check(guid)) return NotFound(ErrorResponse.BuildNotFound());
 
+                useCase.Delete(guid);
                 return NoContent();
             }
             catch (FormatException ex)

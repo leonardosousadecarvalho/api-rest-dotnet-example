@@ -17,7 +17,7 @@ namespace App.Template.Domain.UseCases.User
             {
                 if (userEntity == null) throw new Exception("Failed to create user.");
                 
-                _repository.Create(userEntity);
+                _repository.CreateUser(userEntity);
             }
             catch (Exception)
             {

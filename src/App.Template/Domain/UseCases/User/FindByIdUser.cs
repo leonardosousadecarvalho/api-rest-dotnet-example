@@ -16,7 +16,7 @@ namespace App.Template.Domain.UseCases.User
         {
             try
             {
-                return _repository.FindById(id);
+                return _repository.FindUserById(id);
             }
             catch (Exception)
             {

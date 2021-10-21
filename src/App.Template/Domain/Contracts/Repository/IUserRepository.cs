@@ -6,10 +6,11 @@ namespace App.Template.Domain.Contracts.Repository
 {
     public interface IUserRepository
     {
-        IEnumerable<UserEntity> FindAll();
-        UserEntity FindById(Guid id);
-        void Create(UserEntity userEntity);
-        void Update(Guid id, UserEntity userEntity);
-        void Delete(Guid id);
+        IEnumerable<UserEntity> FindAllUsers();
+        UserEntity FindUserById(Guid id);
+        void CreateUser(UserEntity userEntity);
+        void UpdateUser(Guid id, UserEntity userEntity);
+        void DeleteUser(Guid id);
+        bool UserExists(Guid id);
     }
 }

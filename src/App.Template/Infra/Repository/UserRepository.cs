@@ -9,31 +9,33 @@ using App.Template.Api.Adapters.Factories.User;
 
 namespace App.Template.Infra.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<UserModel>, IUserRepository
     {
         private ApiContext _context;
         public UserRepository(ApiContext context)
-        {
-            this._context = context;
-        }
-        public IEnumerable<UserEntity> FindAll()
+            : base(context) {}
+        public IEnumerable<UserEntity> FindAllUsers()
         {
             try
             {
-                return UserEntityFactory.Build(this._context.Users);
+                return UserEntityFactory.Build(FindAll());
             }
             catch (Exception)
             {
                 throw new Exception("Failed to find users.");
             }
         }
+        public bool UserExists(Guid id)
+        {
+            if(this._findById(id) == null) return false;
+
+            return true;
+        }
         private UserModel _findById(Guid id)
         {
             try
             {
-                UserModel userModel = this._context.Users.FirstOrDefault(user => user.Id == id);
-                if (userModel == null) return null;
-
+                UserModel userModel = FindById(id);
                 return userModel;
             }
             catch (Exception)
@@ -41,12 +43,11 @@ namespace App.Template.Infra.Repository
                 throw new Exception("Failed to find user.");
             }
         }
-        public UserEntity FindById(Guid id)
+        public UserEntity FindUserById(Guid id)
         {
             try
             {
                 UserModel userModel = this._findById(id);
-                if (userModel == null) throw new Exception("User not found!");
 
                 return UserEntityFactory.Build(userModel);
             }
@@ -55,29 +56,26 @@ namespace App.Template.Infra.Repository
                 throw;
             }
         }
-        public void Create(UserEntity userEntity)
+        public void CreateUser(UserEntity userEntity)
         {
             try
             {
-                this._context.Users.Add(UserModelFactory.Build(userEntity));
-                this._context.SaveChanges();
+                Create(UserModelFactory.Build(userEntity));   
             }
             catch (Exception)
             {
                 throw new Exception("Failed to create user.");
             }
         }
-        public void Update(Guid id, UserEntity userEntity)
+        public void UpdateUser(Guid id, UserEntity userEntity)
         {
             try
             {
                 UserModel userModel = this._findById(id);
-                if (userModel == null) throw new Exception("User not found!");
 
                 this._mergeProperties(userEntity, userModel);
 
-                this._context.Users.Update(userModel);
-                this._context.SaveChanges();
+                Update(userModel);
             }
             catch (Exception)
             {
@@ -92,15 +90,13 @@ namespace App.Template.Infra.Repository
 
             return userModel;
         }
-        public void Delete(Guid id)
+        public void DeleteUser(Guid id)
         {
             try
             {
                 UserModel userModel = this._findById(id);
-                if (userModel == null) throw new Exception("User not found!");
 
-                this._context.Users.Remove(userModel);
-                this._context.SaveChanges();
+                Delete(userModel);
             }
             catch (Exception)
             {

@@ -15,6 +15,10 @@ namespace App.Template.Api.Adapters.Responses
         {
             return new ErrorResponse("Validation error", "The fields could not be null or empty");
         }
+        public static ErrorResponse BuildNotFound()
+        {
+            return new ErrorResponse("Not found", "User not found");
+        }
         public static ErrorResponse BuildException(Exception ex)
         {
             return new ErrorResponse(ex.GetType().Name, ex.Message);

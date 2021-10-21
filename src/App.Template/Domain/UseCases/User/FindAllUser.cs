@@ -17,7 +17,7 @@ namespace App.Template.Domain.UseCases.User
         {
             try
             {
-                return _repository.FindAll();
+                return _repository.FindAllUsers();
             }
             catch (Exception)
             {

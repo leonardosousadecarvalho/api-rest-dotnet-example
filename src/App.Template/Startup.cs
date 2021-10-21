@@ -29,6 +29,7 @@ namespace Api.Example
             services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
             services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
             services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+            services.AddScoped<IUserExistsUseCase, UserExistsUseCase>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddDbContext<ApiContext>(options => options.UseInMemoryDatabase("ApiExample"));

@@ -17,7 +17,7 @@ namespace App.Template.Domain.UseCases.User
             try
             {
                 if (userEntity == null) throw new Exception("Failed to update user.");
-                _repository.Update(id, userEntity);
+                _repository.UpdateUser(id, userEntity);
             }
             catch (Exception)
             {

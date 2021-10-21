@@ -15,7 +15,7 @@ namespace App.Template.Domain.UseCases.User
         {
             try
             {
-                _repository.Delete(id);
+                _repository.DeleteUser(id);
             }
             catch (Exception)
             {
